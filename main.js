@@ -1,8 +1,27 @@
  // Initialize AOS (Animate On Scroll)
         AOS.init({
             duration: 1000,
-            once: true,
+            once: false,
             offset: 100
+        });
+
+        // overlays to appear when scrolling to images
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+            const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, observerOptions);
+        
+            // Observe all gallery items
+            document.querySelectorAll('.gallery-item').forEach(item => {
+            observer.observe(item);
         });
 
         // Mobile Menu Toggle
